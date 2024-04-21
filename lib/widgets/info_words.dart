@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class InfoWords extends StatelessWidget {
   final String infoWord;
   final String descriptionWord;
-   InfoWords({
+   const InfoWords({
     super.key,
     required this.descriptionWord,
     required this.infoWord
@@ -13,7 +13,14 @@ class InfoWords extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      child: Text("$descriptionWord: $infoWord")
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text("$descriptionWord: ", style: const TextStyle(fontFamily: 'Bandits', fontSize: 23, ),),
+          Text(infoWord)
+        ],
+      )
     );
   }
 }

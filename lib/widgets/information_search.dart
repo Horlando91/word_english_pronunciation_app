@@ -4,7 +4,7 @@ class InformationSearch extends StatelessWidget {
   final String searchInfo;
   final String searchInfoDescription;
 
-   InformationSearch({
+   const InformationSearch({
     super.key,
     required this.searchInfo,
     required this.searchInfoDescription,
@@ -15,9 +15,10 @@ class InformationSearch extends StatelessWidget {
     return SizedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+         
           children: [
-            Text(searchInfo),
-            SizedBox(height: 10,),
+            Text(searchInfo, style: const TextStyle(fontFamily: 'Bandits', fontSize: 25),),
+            const SizedBox(height: 10,),
             _CardInfo(searchInfoDescription)
           ]
         ),
@@ -31,14 +32,31 @@ class _CardInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width =  MediaQuery.of(context).size.width;
+
     return Container(
-      padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(18)
-        ),
-        child: 
-            Text(infoSearch)
+                padding: const EdgeInsets.all(8),
+                width: width,
+                decoration: BoxDecoration(
+                            boxShadow: [
+                                 BoxShadow(
+                                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    offset: const Offset(2, 2),
+                                  ),
+                                 BoxShadow(
+                                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    offset: const Offset(-2, -2),
+                                  ),
+                                ],
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: const Color.fromARGB(255, 255, 255, 255)
+                          ),
+                          child:Text(infoSearch, style: const TextStyle(color: Color.fromARGB(255, 32, 28, 28),),)
       );
   }
 }

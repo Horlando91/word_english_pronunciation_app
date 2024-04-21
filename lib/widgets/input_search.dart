@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:word_english_pronunciation_app/config/helpers/get_data_word.dart';
-import 'package:word_english_pronunciation_app/provider/word_provider.dart';
 
 class InputSearch extends StatelessWidget {
 
@@ -13,29 +11,34 @@ class InputSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final textController = TextEditingController();
     final focusNode = FocusNode();
-    final callWordProvider = WordProvider();
 
     final outlineInputBorder = UnderlineInputBorder(
       borderSide: const BorderSide(color: Colors.transparent),
       borderRadius: BorderRadius.circular(40),
-
     );
 
     final inputDecoration = InputDecoration(
-      hintText: "Ex: word",
+      hintText: "Example: bye",
       enabledBorder: outlineInputBorder,
       focusedBorder: outlineInputBorder,
-      
+      fillColor: Colors.white,
       filled: true,
-      
-      suffixIcon:  Image.asset("assets/lupa.png",scale: 12,)
-    );
+      suffixIcon: IconButton(
+        icon:  Image.asset("assets/lupa.png",scale: 12,),
+        onPressed: (){
+          final textValue = textController.value.text;
+          onValue(textValue);
+          focusNode.unfocus();
+          
+        },
+      ));
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
+      
       children: [
         SizedBox(
           width: 250,
@@ -45,24 +48,18 @@ class InputSearch extends StatelessWidget {
             shadowColor: Colors.blueAccent,
             borderRadius: BorderRadius.circular(25),
            child: TextFormField(
-            onTapOutside: (event)=>{
-              focusNode.unfocus()
-            },
-          
-            focusNode: focusNode,
-            decoration: inputDecoration,
-            onFieldSubmitted: (value){
-            
-              //GetDataWord().getData(value);
-              //callWordProvider.showWord(value);
-              onValue(value);
-              
-            },
-        ),
-           
-            
-            )
-          
+              onTapOutside: (event)=>{
+                focusNode.unfocus()
+              },
+              focusNode: focusNode,
+              controller: textController,
+              decoration: inputDecoration,
+              onFieldSubmitted: (value){
+                onValue(value);
+                focusNode.unfocus();
+              },
+          ),  
+          )
         ),
       ],
     );

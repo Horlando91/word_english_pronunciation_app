@@ -6,51 +6,29 @@ class GetDataWord {
 
   Future<Word> getData(String word) async{
     
-    final response = await _dio.get("https://api.dictionaryapi.dev/api/v2/entries/en/"+word);
+    final response = await _dio.get("https://api.dictionaryapi.dev/api/v2/entries/en/$word");
     final dataJson = response.data[0];
   
-    print("\n");
-    print("word: "+ response.data[0]['word']);
-    print("phonetic?: "+ response.data[0]['phonetic']);
-    print("audio: "+ response.data[0]['phonetics'][0]['audio']);
-    //print("definitions: "+ response.data[0]['meanings'][0]['definitions'][0]['definition']);
-    //print("example: "+ response.data[0]['meanings'][0]['definitions'][0]['example']);
-
-    //final word = response.data[0]['phonetics'];
-    //final [audio] = word;
-    
-  
-
-  final def = response.data[0]['meanings'][0]['definitions'];
-
-  //print( def.length );
-
-   for( int i=0; i<def.length; i++ ){
-      print( "audio:"+def[i]['definition'] );
-    }
-
-  
-   
-    //print("audio: $audio");
-    //print(response.data[0].phonetics[0].text);
-
     return Word(
       wordSearch: dataJson['word'],
-      phonetics: dataJson['phonetic'], 
+      phonetics: _getDataOfJson(dataJson['phonetics'], 'text'), 
       audio: _getDataOfJson(dataJson['phonetics'], 'audio'), 
       definition: _getDataOfJson(dataJson['meanings'][0]['definitions'], 'definition'),
-      example: "example");
+      example: _getDataOfJson(dataJson['meanings'][0]['definitions'], 'example'));
   }
 
-
   String _getDataOfJson( json, key){
+    const String info="No info available";
 
-     for( int i=0; i<json.length; i++ ){
-      //print( "audio:"+json[i][key] );
-      if (json[i][key].toString().isNotEmpty) {
+    try {
+      for( int i=0; i<json.length; i++ ){
+      if (json[i][key].toString().isNotEmpty && json[i][key] != null  ) {
         return json[i][key];
       }
     }
-    return "";
+    } catch (e) {
+      return info;
+    }
+    return info;
   }
 }

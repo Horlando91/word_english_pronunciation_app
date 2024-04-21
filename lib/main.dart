@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:word_english_pronunciation_app/provider/word_provider.dart';
-import 'package:word_english_pronunciation_app/screens/words_screen.dart';
+import 'package:word_english_pronunciation_app/screens/splash_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,11 +14,12 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => WordProvider())],
-      child: const MaterialApp(
+      child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      theme: ThemeData(scaffoldBackgroundColor: const Color.fromARGB(255, 255, 186, 112)),
+      home: const Scaffold(
         body: Center(
-          child: WordsScreen(),
+          child:SplashScreen(),
         ),
       ),
     ),

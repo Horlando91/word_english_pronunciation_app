@@ -2,8 +2,8 @@ class Word {
   final String wordSearch;
   final String? phonetics;
   final String audio;
-  final String definition;
-  final String example;
+  final String? definition;
+  final String? example;
 
   Word({
     required this.wordSearch,
